@@ -1,0 +1,6 @@
+[submodule "deps/time"]
+	path = deps/time
+	url = git@github.com:russelldb/time.git
+[submodule "deps/tempile"]
+	path = deps/tempile
+	url = git@github.com:russelldb/tempile.git
