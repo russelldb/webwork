@@ -23,6 +23,7 @@ start_link() ->
     application:set_env(webmachine, webmachine_logger_module, 
                         webmachine_logger),
     ensure_started(webmachine),
+    ensure_started(tempile),
     webwork_sup:start_link().
 
 %% @spec start() -> ok
@@ -33,6 +34,7 @@ start() ->
     application:set_env(webmachine, webmachine_logger_module, 
                         webmachine_logger),
     ensure_started(webmachine),
+    ensure_started(tempile),
     application:start(webwork).
 
 %% @spec stop() -> ok
@@ -40,5 +42,6 @@ start() ->
 stop() ->
     Res = application:stop(webwork),
     application:stop(webmachine),
+    application:stop(tempile),
     application:stop(crypto),
     Res.
