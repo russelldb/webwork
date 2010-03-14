@@ -24,6 +24,7 @@ start_link() ->
                         webmachine_logger),
     ensure_started(webmachine),
     ensure_started(tempile),
+    ensure_started(time),
     webwork_sup:start_link().
 
 %% @spec start() -> ok
@@ -35,6 +36,7 @@ start() ->
                         webmachine_logger),
     ensure_started(webmachine),
     ensure_started(tempile),
+    ensure_started(time),
     application:start(webwork).
 
 %% @spec stop() -> ok
