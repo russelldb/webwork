@@ -6,6 +6,18 @@
 </head>
 <body>
 <h1>{{client}}</h1>
-
+<h2>Edit {{client}}'s template</h2>
+<form method="post" action="/template/{{client}}">
+<label for="rate">Rate</label><input type="text" id="rate"
+name="rate" value="{{rate}}"/>
+<label for="rate_period">Rate Period</label><select id="rate_period"
+name="rate_period">
+  <option value="day" {{#rate_period_is_day}}selected{{/rate_period_is_day}}>Day</option>
+  <option value="hour" {{#rate_period_is_hour}}selected{{/rate_period_is_hour}}>Hour</option>
+</select>
+<label for="units">Units</label><input type="text" id="units"
+name="units" value="{{units}}"/>
+<input type="submit"/>
+</form>
 </body>
 </html>

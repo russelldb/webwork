@@ -31,7 +31,8 @@ handle_post(ReqData, Context) ->
     error_logger:info_msg("~p ~p ~p~n", [wrq:disp_path(ReqData), null, template_from_form(ReqData)]),
     T =  template_from_form(ReqData),
     {ok, Key} = time:template(binary_to_atom(T#time.client, utf8), T),
-    {true, ReqData, Context}.
+    {ok, Out} = tempile:render(?MODULE, dict:new()),
+    {true, wrq:append_to_response_body(Out, ReqData), Context}.
 
 template_from_form(ReqData) ->
     L = mochiweb_util:parse_qs(wrq:req_body(ReqData)),
