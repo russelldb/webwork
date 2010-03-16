@@ -8,6 +8,7 @@
 <h1>{{client}}</h1>
 <h2>Edit {{client}}'s template</h2>
 <form method="post" action="/template/{{client}}">
+<input type="hidden" name="client" value="{{client}}"/>
 <label for="rate">Rate</label><input type="text" id="rate"
 name="rate" value="{{rate}}"/>
 <label for="rate_period">Rate Period</label><select id="rate_period"
