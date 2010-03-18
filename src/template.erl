@@ -19,7 +19,12 @@ content_types_accepted(ReqData, Context) ->
 
 delete_resource(ReqData, Context) ->
     %%%delete it
-    {true, ReqData, Context}.
+    case time:delete_template(list_to_atom(wrq:path_info(client, ReqData))) of
+	ok ->
+	    {true, ReqData, Context};
+	_ ->
+	    {false, ReqData, Context}
+    end.
 
 delete_completed(ReqData, Context) ->
     {true, wrq:append_to_response_body(<<"true">>, ReqData), Context}.
