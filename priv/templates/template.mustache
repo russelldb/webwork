@@ -3,6 +3,23 @@
 <head>
   <meta charset="utf-8">
   <title>{{client}}</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+ <script type="text/javascript">                                         
+    $(document).ready(function() {
+      $("#delete").click(function() {
+         $.ajax({ url: '/template/{{client}}',
+             type: 'DELETE',
+             success: function( response ) {
+              alert( "{{client}} deleted" );
+              window.location.href="/template";
+            },
+            error: function( response ) {
+             alert( "Delete of {{client}} failed" );
+           }
+        });
+   });
+ });                                   
+ </script>      
 </head>
 <body>
 <h1>{{client}}</h1>
@@ -18,7 +35,7 @@ name="rate_period">
 </select>
 <label for="units">Units</label><input type="text" id="units"
 name="units" value="{{units}}"/>
-<input type="submit"/>
+<input type="submit"/> <input type="button" value="delete" id="delete"/>
 </form>
 </body>
 </html>

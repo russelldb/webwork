@@ -1,6 +1,6 @@
 -module(template).
 
--export([init/1, to_html/2, allowed_methods/2, content_types_accepted/2, process_post/2, resource_exists/2, rate_period_is_hour/1, rate_period_is_day/1]).
+-export([init/1, to_html/2, allowed_methods/2, content_types_accepted/2, process_post/2, resource_exists/2, rate_period_is_hour/1, rate_period_is_day/1, delete_resource/2, delete_completed/2]).
 
 -include_lib("webmachine/include/webmachine.hrl").
 -include_lib("time/include/time.hrl").
@@ -12,10 +12,17 @@ to_html(ReqData, Context) ->
     {Out, ReqData, Context}.
 
 allowed_methods(ReqData, Context) ->
-    {['GET', 'POST'], ReqData, Context}.
+    {['GET', 'POST', 'DELETE'], ReqData, Context}.
 
 content_types_accepted(ReqData, Context) ->
     {[{"application/x-www-form-urlencoded", process_post}, {"text/html", to_html}], ReqData, Context}.
+
+delete_resource(ReqData, Context) ->
+    %%%delete it
+    {true, ReqData, Context}.
+
+delete_completed(ReqData, Context) ->
+    {true, wrq:append_to_response_body(<<"true">>, ReqData), Context}.
 
 process_post(ReqData, Context) ->
     T =  template_util:template_from_form(ReqData),
