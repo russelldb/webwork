@@ -16,8 +16,23 @@
             error: function( response ) {
              alert( "Delete of {{client}} failed" );
            }
+          });
         });
-   });
+
+       $("#forToday").click(function() {
+         $.ajax({ url: '/work/today/{{client}}',
+                  type: 'PUT',
+                  contentType: 'text/plain',
+                  success: function( response ) {
+                   alert("Today added for {{client}}");
+                   window.location.href="/work/" + response;
+                  },
+                 error: function( response ) {
+                    alert("Failed to create today from {{client}}" + response);
+                 },
+            });
+            return false;
+       });
  });                                   
  </script>      
 </head>
@@ -35,8 +50,11 @@ name="rate_period">
 </select>
 <label for="units">Units</label><input type="text" id="units"
 name="units" value="{{units}}"/>
-<input type="submit"/> <input type="button" value="delete" id="delete"/>
+<input type="submit" value="update"/> <input type="button" value="delete" id="delete"/>
 </form>
-<a href="/template/">Templates</a>
+<ul id="actions">
+<ul><a href="/template/" id="templates">Templates</a></ul>
+<ul><a href="#" id="forToday">Add for today</a></ul>
+</li>
 </body>
 </html>

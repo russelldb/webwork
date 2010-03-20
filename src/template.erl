@@ -8,14 +8,14 @@
 init([]) -> {ok, undefined}.
 
 to_html(ReqData, Context) ->
-    {ok, Out} = tempile:render(?MODULE, template_to_dict(Context)),
+    {ok, Out} = tempile:render(?MODULE, ww_util:time_to_dict(Context)),
     {Out, ReqData, Context}.
 
 allowed_methods(ReqData, Context) ->
-    {['GET', 'POST', 'DELETE'], ReqData, Context}.
+    {['GET', 'POST', 'DELETE', 'PUT'], ReqData, Context}.
 
 content_types_accepted(ReqData, Context) ->
-    {[{"application/x-www-form-urlencoded", process_post}, {"text/html", to_html}], ReqData, Context}.
+    {[{"application/x-www-form-urlencoded", process_post}, {"text/plain", process_post}, {"text/html", to_html}], ReqData, Context}.
 
 delete_resource(ReqData, Context) ->
     %%%delete it
@@ -30,9 +30,9 @@ delete_completed(ReqData, Context) ->
     {true, wrq:append_to_response_body(<<"true">>, ReqData), Context}.
 
 process_post(ReqData, Context) ->
-    T =  template_util:template_from_form(ReqData),
-    {ok, Key} = time:template(list_to_atom(wrq:path_info(client, ReqData)), T),
-    {ok, Out} = tempile:render(?MODULE, template_to_dict(T)),
+    T =  ww_util:time_from_form(ReqData),
+    {ok, _} = time:template(list_to_atom(wrq:path_info(client, ReqData)), T),
+    {ok, Out} = tempile:render(?MODULE, ww_util:time_to_dict(T)),
     {true,  wrq:append_to_response_body(Out, ReqData), Context}.
 
 resource_exists(ReqData, Context) ->
@@ -44,13 +44,6 @@ resource_exists(ReqData, Context) ->
 	_ ->
 	    {true, ReqData, T}
    end.
-
-template_to_dict(T) when is_record(T, time) ->
-    D = dict:new(),
-    D1 = dict:store(client, binary_to_list(T#time.client), D),
-    D2 = dict:store(rate, T#time.rate, D1),
-    D3 = dict:store(rate_period, T#time.rate_period, D2),
-    dict:store(units, T#time.units, D3).
 
 %%% Template methods
 rate_period_is_day(Ctx) ->

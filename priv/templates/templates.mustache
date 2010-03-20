@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Add template</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+ <script type="text/javascript">                                         
+    $(document).ready(function() {
+      $("#create").click(function() {
+         var client = $("#client").val();
+         alert(client);
+         $.ajax({ url: '/template/' + client,
+             type: 'PUT',
+             contentType: 'text/plain',
+             data: {'client': client,
+                    'rate'  :  $('#rate').val(),
+                    'rate_period' : $('#rate_period').val(),
+                    'units'  : $('#units').val()
+              },
+             success: function( response ) {
+              alert( client + " putted" );
+              window.location.href="/template/"+client;
+            },
+            error: function( response ) {
+             alert( "Putting failed" );
+           }
+        });
+   });
+ });                                   
+ </script>      
+</head>
+<body>
+<h1>Manage Templates</h1>
+<h2>Current Templates</h2>
+<ul>
+{{#templates}}
+<li><a href="/template/{{template}}">{{template}}</a></li>
+{{/templates}}
+</ul>
+<h2>Add a new template</h2>
+<form id="createTemplate">
+<label for="client">Client</label><input type="text" id="client"
+name="client" value=""/>
+<label for="rate">Rate</label><input type="text" id="rate"
+name="rate" value=""/>
+<label for="rate_period">Rate Period</label><select id="rate_period"
+name="rate_period">
+  <option value="day">Day</option>
+  <option value="hour">Hour</option>
+</select>
+<label for="units">Units</label><input type="text" id="units"
+name="units" value=""/>
+<input type="submit" onclick="return false;" id="create"/>
+</form>
+</body>
+</html>
