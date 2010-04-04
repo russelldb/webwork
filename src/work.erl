@@ -34,7 +34,6 @@ resource_exists(ReqData, Context) ->
 from_data(ReqData, Context) ->
     Template = list_to_atom(wrq:path_info(template, ReqData)),
     {ok, Key} = time:today_from_template(Template),
-    error_logger:info_msg("Key : ~p~n", [Key]),
     {true, wrq:append_to_response_body(binary_to_list(Key), ReqData), Context}.
 
 delete_resource(ReqData, Context) ->
@@ -51,7 +50,6 @@ delete_completed(ReqData, Context) ->
 
 %%% Template methods
 rate_period_is_day(Ctx) ->
-    error_logger:info_msg("RP = ~p~n", [dict:fetch(rate_period, Ctx)]),
     case dict:fetch(rate_period, Ctx) of
 	day ->
 	    true;

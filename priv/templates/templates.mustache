@@ -8,7 +8,6 @@
     $(document).ready(function() {
       $("#create").click(function() {
          var client = $("#client").val();
-         alert(client);
          $.ajax({ url: '/template/' + client,
              type: 'PUT',
              contentType: 'text/plain',
@@ -18,11 +17,10 @@
                     'units'  : $('#units').val()
               },
              success: function( response ) {
-              alert( client + " putted" );
               window.location.href="/template/"+client;
             },
             error: function( response ) {
-             alert( "Putting failed" );
+             alert( "Putting failed " + response );
            }
         });
    });
@@ -54,3 +52,4 @@ name="units" value=""/>
 </form>
 </body>
 </html>
+

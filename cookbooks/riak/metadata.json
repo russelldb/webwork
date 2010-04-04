@@ -1,0 +1,43 @@
+{
+  "license": "Apache 2.0",
+  "recipes": {
+    "riak": ""
+  },
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "erlang": [
+
+    ]
+  },
+  "long_description": "",
+  "description": "Installs riak",
+  "replacing": {
+
+  },
+  "platforms": {
+    "debian": [
+
+    ],
+    "ubuntu": [
+
+    ]
+  },
+  "version": "0.1.0",
+  "maintainer": "Opscode, Inc.",
+  "recommendations": {
+
+  },
+  "name": "riak",
+  "maintainer_email": "cookbooks@opscode.com",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  }
+}

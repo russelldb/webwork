@@ -1,0 +1,43 @@
+{
+  "license": "Apache 2.0",
+  "recipes": {
+    "erlang": ""
+  },
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "erlang": [
+
+    ]
+  },
+  "long_description": "",
+  "description": "Installs erlang",
+  "replacing": {
+
+  },
+  "platforms": {
+    "debian": [
+
+    ],
+    "ubuntu": [
+
+    ]
+  },
+  "version": "0.7.0",
+  "maintainer": "Opscode, Inc.",
+  "recommendations": {
+
+  },
+  "name": "erlang",
+  "maintainer_email": "cookbooks@opscode.com",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  }
+}

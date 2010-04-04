@@ -39,7 +39,7 @@ resource_exists(ReqData, Context) ->
     Client = list_to_atom(wrq:path_info(client, ReqData)),
     T = time:get_template(Client),
     case T of
-	undefined ->
+	{error, notound} ->
 	    {false, ReqData, Context};
 	_ ->
 	    {true, ReqData, T}
