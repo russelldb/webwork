@@ -1,18 +1,58 @@
 <html>
 <head>
 <title>Work</title>
-<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/cupertino/jquery-ui.css" rel="Stylesheet" />
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dijit/themes/tundra/tundra.css">
 <script type="text/javascript"
-src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript"
-src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+src="http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dojo/dojo.xd.js"></script>
+
 <script>
-$(function() {
-    $("#date").datepicker();
-});
+dojo.require("dijit.form.FilteringSelect");
+dojo.require("dojo.data.ItemFileReadStore");
+dojo.require("dijit.form.Button");
+function getClients() {
+    var xhrArgs = {
+        url:"/template",
+        headers: { "Accept": "application/json"},
+        handleAs: "json",
+        load: function(data){
+               var clientStore =  new dojo.data.ItemFileReadStore({
+                                    data: data
+                                  });
+
+               var filteringSelect = new dijit.form.FilteringSelect({
+                                      id: "clients",
+                                      name: "client",
+                                      value: "CPP",
+                                      store: clientStore,
+                                      searchAttr: "name"
+                                     },
+                                     "clients");
+              var button = new dijit.form.Button({label: "hello world",
+                                      onClick: function(e) {alert(dijit.byId('clients').attr('value'))} }, "clicker");
+                               }
+          };
+
+   var deffered = dojo.xhrGet(xhrArgs);
+}
+
+
+
+dojo.addOnLoad(getClients);
+              
 </script>
 </head>
-<body>
-<input type="text" name="date" id="date" />
+<body class="tundra">
+<h1>Work work work</h1>
+<h2>Add work</h2>
+
+<label for="clients">Select Client</label>
+<input id="clients">
+<button id="clicker" />
+<button id="1465" dojoType="dijit.form.Button"
+  onClick='alert("clicked simple")'
+  iconClass="plusIcon">
+  Click Me!
+</button>
+
 </body>
 </html>
